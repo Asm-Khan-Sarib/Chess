@@ -1,0 +1,21 @@
+Features:
+1. Change background image
+2. Chagnge/Off background music
+3. Click Start/Reset button to start/restart the game.
+4. King, Queen, Bishop, knight, rook and Pawn legal move rules.
+5. Capturing piece
+6. Castling
+7. Pawn promotion (auto: queen, manual select option)
+8. Select piece to promote.(from right side pieces)
+9. Check
+10. Discover check
+11. Not allow to make a move without defend check
+'
+'
+'
+
+
+Limitations:
+1. En passant not added
+2. Castling issue(oponet piece has vission on squares between king and rook)
+3. pawn promote at the time of check

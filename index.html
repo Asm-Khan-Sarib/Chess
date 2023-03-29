@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome To Chess</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="work.js"></script>
+</head>
+<body>
+  <audio id="audio1" src="music/adventure.mp3" loop></audio>
+  <audio id="audio2" src="music/funky.mp3" loop></audio>
+  <div class="image">
+    <div class="dropdown">
+      <button class="dropbtn">Background</button>
+      <div class="dropdown-content">
+        <a id="img1">Night</a>
+        <a id="img2">Frost</a>
+        <a id="img3">Beach</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Music</button>
+      <div class="dropdown-content">
+        <a id="music1">Advenutre</a>
+        <a id="music2">Funky</a>
+        <a id="music3">OFF</a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="bord" id="bord1">
+    <table>
+      <tr>
+        <td><button type="button" class="w_button" id=  "a1"></button></td>
+        <td><button type="button" class="b_button" id=  "a2"></button></td>
+        <td><button type="button" class="w_button" id=  "a3"></button></td>
+        <td><button type="button" class="b_button" id=  "a4"></button></td>
+        <td><button type="button" class="w_button" id=  "a5"></button></td>
+        <td><button type="button" class="b_button" id=  "a6"></button></td>
+        <td><button type="button" class="w_button" id=  "a7"></button></td>
+        <td><button type="button" class="b_button" id=  "a8"></button></td>
+        <td></td>
+        <td><button type="button" class="p_button" id=  "p1"></button></td>
+      </tr>
+      <tr>
+        <td><button type="button" class="b_button" id=  "a9"></button></td>
+        <td><button type="button" class="w_button" id= "a10"></button></td>
+        <td><button type="button" class="b_button" id= "a11"></button></td>
+        <td><button type="button" class="w_button" id= "a12"></button></td>
+        <td><button type="button" class="b_button" id= "a13"></button></td>
+        <td><button type="button" class="w_button" id= "a14"></button></td>
+        <td><button type="button" class="b_button" id= "a15"></button></td>
+        <td><button type="button" class="w_button" id= "a16"></button></td>
+        <td></td>
+        <td><button type="button" class="p_button" id=  "p2"></button></td>
+      </tr>
+      <tr>
+        <td><button type="button" class="w_button" id= "a17"></button></td>
+        <td><button type="button" class="b_button" id= "a18"></button></td>
+        <td><button type="button" class="w_button" id= "a19"></button></td>
+        <td><button type="button" class="b_button" id= "a20"></button></td>
+        <td><button type="button" class="w_button" id= "a21"></button></td>
+        <td><button type="button" class="b_button" id= "a22"></button></td>
+        <td><button type="button" class="w_button" id= "a23"></button></td>
+        <td><button type="button" class="b_button" id= "a24"></button></td>
+        <td></td>
+        <td><button type="button" class="p_button" id=  "p3"></button></td>
+      </tr>
+      <tr>
+        <td><button type="button" class="b_button" id= "a25"></button></td>
+        <td><button type="button" class="w_button" id= "a26"></button></td>
+        <td><button type="button" class="b_button" id= "a27"></button></td>
+        <td><button type="button" class="w_button" id= "a28"></button></td>
+        <td><button type="button" class="b_button" id= "a29"></button></td>
+        <td><button type="button" class="w_button" id= "a30"></button></td>
+        <td><button type="button" class="b_button" id= "a31"></button></td>
+        <td><button type="button" class="w_button" id= "a32"></button></td>
+        <td></td>
+        <td><button type="button" class="p_button" id=  "p4"></button></td>
+      </tr>
+      <tr>
+      <td><button type="button" class="w_button" id= "a33"></button></td>
+        <td><button type="button" class="b_button" id= "a34"></button></td>
+        <td><button type="button" class="w_button" id= "a35"></button></td>
+        <td><button type="button" class="b_button" id= "a36"></button></td>
+        <td><button type="button" class="w_button" id= "a37"></button></td>
+        <td><button type="button" class="b_button" id= "a38"></button></td>
+        <td><button type="button" class="w_button" id= "a39"></button></td>
+        <td><button type="button" class="b_button" id= "a40"></button></td>
+        <td></td>
+        <td><button type="button" class="p_button" id=  "p5"></button></td>
+      </tr>
+      <tr>
+        <td><button type="button" class="b_button" id= "a41"></button></td>
+        <td><button type="button" class="w_button" id= "a42"></button></td>
+        <td><button type="button" class="b_button" id= "a43"></button></td>
+        <td><button type="button" class="w_button" id= "a44"></button></td>
+        <td><button type="button" class="b_button" id= "a45"></button></td>
+        <td><button type="button" class="w_button" id= "a46"></button></td>
+        <td><button type="button" class="b_button" id= "a47"></button></td>
+        <td><button type="button" class="w_button" id= "a48"></button></td>
+        <td></td>
+        <td><button type="button" class="p_button" id=  "p6"></button></td>
+      </tr>
+      <tr>
+        <td><button type="button" class="w_button" id= "a49"></button></td>
+        <td><button type="button" class="b_button" id= "a50"></button></td>
+        <td><button type="button" class="w_button" id= "a51"></button></td>
+        <td><button type="button" class="b_button" id= "a52"></button></td>
+        <td><button type="button" class="w_button" id= "a53"></button></td>
+        <td><button type="button" class="b_button" id= "a54"></button></td>
+        <td><button type="button" class="w_button" id= "a55"></button></td>
+        <td><button type="button" class="b_button" id= "a56"></button></td>
+        <td></td>
+        <td><button type="button" class="p_button" id=  "p7"></button></td>
+      </tr>
+      <tr>
+        <td><button type="button" class="b_button" id= "a57"></button></td>
+        <td><button type="button" class="w_button" id= "a58"></button></td>
+        <td><button type="button" class="b_button" id= "a59"></button></td>
+        <td><button type="button" class="w_button" id= "a60"></button></td>
+        <td><button type="button" class="b_button" id= "a61"></button></td>
+        <td><button type="button" class="w_button" id= "a62"></button></td>
+        <td><button type="button" class="b_button" id= "a63"></button></td>
+        <td><button type="button" class="w_button" id= "a64"></button></td>
+        <td></td>
+        <td><button type="button" class="p_button" id=  "p8"></button></td>
+      </tr>
+      <tr rowspan="2">
+        <td colspan="3"></td><td colspan="2" rowspan="2"><button type="button" class="button" id="reset"><h2>Start</h2></button></td>
+      </tr>
+      <tr>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+  <p id="text1"></p>
+  <p id="text2"></p>
+  <p id="text3"></p>
+</body>
+</html>
