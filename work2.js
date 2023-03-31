@@ -1,8 +1,11 @@
 const piece=['rook','knight','bishop','king','queen','bishop','knight','rook']
 let bord=[]
 let promotion_list=[]
-w_promotion = 'url("image/pieces/w_queen.png")'
-b_promotion = 'url("image/pieces/b_queen.png")'
+let w_promotion = 'url("image/pieces/w_queen.png")'
+let b_promotion = 'url("image/pieces/b_queen.png")'
+let previous_button_id = 'reset'
+let previous_button = document.getElementById(`${previous_button_id}`)
+let previous_color = 'b'
 
 //set all bord and promotion list piece
 const reset_all_pieces = () =>{
@@ -27,18 +30,50 @@ const reset_all_pieces = () =>{
             bord[i].style.backgroundImage = ''
         }
     }
+    previous_button.style.backgroundImage = ''
 }
+//remove border
 function remove_border(){
     bord.forEach(button=>{
         button.style.border = ''
     })
 }
-//remove color from promotional button
-function remove_color(c){
+//remove border from promotional button
+function remove_promotion_list_border(c){
     promotion_list.forEach(button => {
         if(button.style.backgroundImage[18]===c){
             button.style.border = ''
         }
+    })
+}
+//possible move
+function possible_move(button){
+    let x=[]
+    const button_position = bord.findIndex(x=>{
+        return x === button
+    })
+    if(button.style.backgroundImage.includes('king')){
+        x=king_move(button_position)
+    }
+    if(button.style.backgroundImage.includes('queen')){
+        let x1=bishop_move(button_position)
+        let x2=rook_move(button_position)
+        x=[...x1, ...x2]
+    }
+    if(button.style.backgroundImage.includes('bishop')){
+        x=bishop_move(button_position)
+    }
+    if(button.style.backgroundImage.includes('knight')){
+        x=Knight_moves(button_position)
+    }
+    if(button.style.backgroundImage.includes('rook')){
+        x=rook_move(button_position)
+    }
+    if(button.style.backgroundImage.includes('pawn')){
+        x=pawn_move(button_position)
+    }
+    x.forEach(Element=>{
+        bord[Element].style.border='3px solid rgba(172, 65, 51, 0.9)'
     })
 }
 //king normal move
@@ -241,20 +276,20 @@ function pawn_move(temp_position){
         }
         //capture
         if((temp_position%8) === 0){
-            if(bord[temp_position+9].style.backgroundImage==='w'){
+            if(bord[temp_position+9].style.backgroundImage[18]==='w'){
                 moves.push(temp_position+9)
             }   
         }
         else if(((temp_position+1) %8) === 0){
-            if(bord[temp_position+7].style.backgroundImage==='w'){
+            if(bord[temp_position+7].style.backgroundImage[18]==='w'){
                 moves.push(temp_position+7)
             }
         }
         else{
-            if(bord[temp_position+7].style.backgroundImage==='w'){
+            if(bord[temp_position+7].style.backgroundImage[18]==='w'){
                 moves.push(temp_position+7)
             }
-            if(bord[temp_position+9].style.backgroundImage==='w'){
+            if(bord[temp_position+9].style.backgroundImage[18]==='w'){
                 moves.push(temp_position+9)
             }
         }
@@ -268,20 +303,20 @@ function pawn_move(temp_position){
         }
         //capture
         if((temp_position%8) === 0){
-            if(bord[temp_position-7].style.backgroundImage==='b'){
+            if(bord[temp_position-7].style.backgroundImage[18]==='b'){
                 moves.push(temp_position-7)
             }   
         }
         else if(((temp_position+1) %8) === 0){
-            if(bord[temp_position-9].style.backgroundImage==='b'){
+            if(bord[temp_position-9].style.backgroundImage[18]==='b'){
                 moves.push(temp_position-9)
             }
         }
         else{
-            if(bord[temp_position-7].style.backgroundImage==='b'){
+            if(bord[temp_position-7].style.backgroundImage[18]==='b'){
                 moves.push(temp_position-7)
             }
-            if(bord[temp_position-9].style.backgroundImage==='b'){
+            if(bord[temp_position-9].style.backgroundImage[18]==='b'){
                 moves.push(temp_position-9)
             }
         }
@@ -301,12 +336,16 @@ document.addEventListener("DOMContentLoaded", () =>{
     }
     //reset everything
     document.getElementById("reset").addEventListener("click", () =>{
+        document.getElementById("reset").innerHTML='<h2>Reset</h2>'
         reset_all_pieces ()
         remove_border()
+        remove_promotion_list_border('w')
+        remove_promotion_list_border('b')
         w_promotion = 'url("image/pieces/w_queen.png")'
         b_promotion = 'url("image/pieces/b_queen.png")'
-        remove_color('w')
-        remove_color('b')
+        previous_button_id = 'reset'
+        previous_color = 'b'
+        
     })
     
     //promotion buttons
@@ -314,13 +353,13 @@ document.addEventListener("DOMContentLoaded", () =>{
         button.addEventListener("click", () =>{
             // white
             if(button.style.backgroundImage[18]==='w'){
-                remove_color('w')
+                remove_promotion_list_border('w')
                 w_promotion = button.style.backgroundImage
                 button.style.border = '3px solid rgba(206, 245, 35, 0.9)'
             }
             //black
             if(button.style.backgroundImage[18]==='b'){
-                remove_color('b')
+                remove_promotion_list_border('b')
                 b_promotion = button.style.backgroundImage
                 button.style.border = '3px solid rgba(206, 245, 35, 0.9)'
             }
@@ -331,23 +370,39 @@ document.addEventListener("DOMContentLoaded", () =>{
 
     bord.forEach(button => {
         button.addEventListener("click", () => {
-            remove_border()
-            button.style.border='3px solid rgba(206, 245, 35, 0.9)'
-            const button_position = bord.findIndex(x=>{
-                return x === button
-            })
-            //let x=bishop_move(button_position)
-            //let x=rook_move(button_position)
-            //let x=king_move(button_position)
-            //let x=Knight_moves(button_position)
-            // let x1=bishop_move(button_position)
-            // let x2=rook_move(button_position)
-            // let x=[...x1, ...x2]
-            let x=pawn_move(button_position)
-            x.forEach(Element=>{
-                bord[Element].style.border='3px solid rgba(172, 65, 51, 0.9)'
-            })
-            text3.innerHTML=x
+            previous_button = document.getElementById(`${previous_button_id}`) 
+            //not capturing same color piece
+            if((button.style.backgroundImage != '') && (previous_button.style.backgroundImage != '') && (button.style.backgroundImage[18]==previous_button.style.backgroundImage[18])){
+                remove_border()
+                button.style.border = '3px solid rgba(206, 245, 35, 0.9)'
+                previous_button_id = button.id
+                if(button.style.backgroundImage!=''){
+                    possible_move(button)
+                }
+            }
+            // not move same color twoice
+            else if (button.style.backgroundImage[18]!=previous_color){
+                //select a piece
+                if(previous_button.style.backgroundImage==''){
+                    remove_border()
+                    button.style.border = '3px solid rgba(206, 245, 35, 0.9)'
+                    if(button.style.backgroundImage !=''){
+                        previous_button_id = button.id
+                        previous_color=button.style.backgroundImage[18]
+                        if(button.style.backgroundImage!=''){
+                            possible_move(button)
+                        }
+                    }
+                }
+                //place a piece
+                else if( ! button.style.backgroundImage.includes('king') ){
+                    remove_border()
+                    button.style.backgroundImage = previous_button.style.backgroundImage
+                    previous_button.style.backgroundImage = ''
+                    previous_button_id = 'reset'
+                }
+            }
+               
         })
     })
 })
