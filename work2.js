@@ -1,4 +1,4 @@
-const piece=['rook','knight','bishop','king','queen','bishop','knight','rook']
+const piece=['rook','knight','bishop','queen','king','bishop','knight','rook']
 let bord=[]
 let promotion_list=[]
 let w_promotion = 'url("image/pieces/w_queen.png")'
@@ -12,8 +12,8 @@ const reset_all_pieces = () =>{
     for(let i=0; i<bord.length; i++){
         if(i<8){
             if(i<4){
-                promotion_list[i].style.backgroundImage = `url("image/pieces/b_${piece[i+4]}.png")`
-                promotion_list[i+4].style.backgroundImage = `url("image/pieces/w_${piece[i+4]}.png")`
+                promotion_list[i].style.backgroundImage = `url("image/pieces/b_${piece[i]}.png")`
+                promotion_list[i+4].style.backgroundImage = `url("image/pieces/w_${piece[i]}.png")`
             }
             bord[i].style.backgroundImage = `url("image/pieces/b_${piece[i]}.png")`
         }
