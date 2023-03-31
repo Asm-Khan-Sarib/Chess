@@ -46,6 +46,13 @@ function remove_promotion_list_border(c){
         }
     })
 }
+//post move
+function post_move(button){
+    remove_border()
+    button.style.backgroundImage = previous_button.style.backgroundImage
+    previous_button.style.backgroundImage = ''
+    previous_button_id = 'reset'
+}
 //possible move
 function possible_move(button){
     let x=[]
@@ -396,10 +403,53 @@ document.addEventListener("DOMContentLoaded", () =>{
                 }
                 //place a piece
                 else if( ! button.style.backgroundImage.includes('king') ){
-                    remove_border()
-                    button.style.backgroundImage = previous_button.style.backgroundImage
-                    previous_button.style.backgroundImage = ''
-                    previous_button_id = 'reset'
+                    // 
+                    const button_position = bord.findIndex(x=>{
+                        return x === button
+                    })
+                    const temp_position = bord.findIndex(x=>{
+                        return x === previous_button
+                    })
+                    let x=[]
+                    if(previous_button.style.backgroundImage.includes('king')){
+                        x=king_move(temp_position)
+                        if(x.includes(button_position)){
+                            post_move(button)
+                        }
+                    }
+                    if(previous_button.style.backgroundImage.includes('queen')){
+                        let x1=bishop_move(temp_position)
+                        let x2=rook_move(temp_position)
+                        x=[...x1, ...x2]
+                        if(x.includes(button_position)){
+                            post_move(button)
+                        }
+                    }
+                    if(previous_button.style.backgroundImage.includes('bishop')){
+                        x=bishop_move(temp_position)
+                        if(x.includes(button_position)){
+                            post_move(button)
+                        }
+                    }
+                    if(previous_button.style.backgroundImage.includes('knight')){
+                        x=Knight_moves(temp_position)
+                        if(x.includes(button_position)){
+                            post_move(button)
+                        }
+                    }
+                    if(previous_button.style.backgroundImage.includes('rook')){
+                        x=rook_move(temp_position)
+                        if(x.includes(button_position)){
+                            post_move(button)
+                        }
+                    }
+                    if(previous_button.style.backgroundImage.includes('pawn')){
+                        x=pawn_move(temp_position)
+                        if(x.includes(button_position)){
+                            post_move(button)
+                        }
+                    }
+                    text1.innerHTML=x
                 }
             }
                
