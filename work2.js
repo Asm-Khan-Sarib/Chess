@@ -29,7 +29,6 @@ const reset_all_pieces = () =>{
 function remove_border(){
     bord.forEach(button=>{
         button.style.border = ''
-        button.innerHTML=''
     })
 }
 //king normal move
@@ -75,7 +74,7 @@ function Knight_moves(temp_position) {
     })
     return moves
 }
-//rook for check
+//rook
 function rook_move(temp_position){
     let color = bord[temp_position].style.backgroundImage[18]
     let row = Math.floor(temp_position / 8)
@@ -147,7 +146,7 @@ function rook_move(temp_position){
     }
     return moves
 }
-// bishop for check
+// bishop
 function bishop_move(temp_position){
     let color = bord[temp_position].style.backgroundImage[18]
     let row = Math.floor(temp_position / 8)
@@ -219,7 +218,66 @@ function bishop_move(temp_position){
     }
     return moves
 }
-
+// pawm move
+function pawn_move(temp_position){
+    let color = bord[temp_position].style.backgroundImage[18]
+    let moves = []
+    if(color==='b'){
+        if(bord[temp_position+8].style.backgroundImage===''){
+            moves.push(temp_position+8)
+        }
+        if((Math.trunc(temp_position/8) === 1) && (bord[temp_position+8].style.backgroundImage==='') && (bord[temp_position+16].style.backgroundImage==='')){
+            moves.push(temp_position+16)
+        }
+        //capture
+        if((temp_position%8) === 0){
+            if(bord[temp_position+9].style.backgroundImage==='w'){
+                moves.push(temp_position+9)
+            }   
+        }
+        else if(((temp_position+1) %8) === 0){
+            if(bord[temp_position+7].style.backgroundImage==='w'){
+                moves.push(temp_position+7)
+            }
+        }
+        else{
+            if(bord[temp_position+7].style.backgroundImage==='w'){
+                moves.push(temp_position+7)
+            }
+            if(bord[temp_position+9].style.backgroundImage==='w'){
+                moves.push(temp_position+9)
+            }
+        }
+    }
+    if(color==='w'){
+        if(bord[temp_position-8].style.backgroundImage===''){
+            moves.push(temp_position-8)
+        }
+        if((Math.trunc(temp_position/8) === 6) && (bord[temp_position-8].style.backgroundImage==='') && (bord[temp_position-16].style.backgroundImage==='')){
+            moves.push(temp_position-16)
+        }
+        //capture
+        if((temp_position%8) === 0){
+            if(bord[temp_position-7].style.backgroundImage==='b'){
+                moves.push(temp_position-7)
+            }   
+        }
+        else if(((temp_position+1) %8) === 0){
+            if(bord[temp_position-9].style.backgroundImage==='b'){
+                moves.push(temp_position-9)
+            }
+        }
+        else{
+            if(bord[temp_position-7].style.backgroundImage==='b'){
+                moves.push(temp_position-7)
+            }
+            if(bord[temp_position-9].style.backgroundImage==='b'){
+                moves.push(temp_position-9)
+            }
+        }
+    }
+    return moves
+}
 document.addEventListener("DOMContentLoaded", () =>{
     const text1 = document.getElementById('text1')
     const text2 = document.getElementById('text2')
@@ -249,9 +307,10 @@ document.addEventListener("DOMContentLoaded", () =>{
             //let x=rook_move(button_position)
             //let x=king_move(button_position)
             //let x=Knight_moves(button_position)
-            let x1=bishop_move(button_position)
-            let x2=rook_move(button_position)
-            let x=[...x1, ...x2]
+            // let x1=bishop_move(button_position)
+            // let x2=rook_move(button_position)
+            // let x=[...x1, ...x2]
+            let x=pawn_move(button_position)
             x.forEach(Element=>{
                 bord[Element].style.border='3px solid rgba(172, 65, 51, 0.9)'
             })
