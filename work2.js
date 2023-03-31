@@ -6,6 +6,10 @@ let b_promotion = 'url("image/pieces/b_queen.png")'
 let previous_button_id = 'reset'
 let previous_button = document.getElementById(`${previous_button_id}`)
 let previous_color = 'b'
+let castle_w_long = true
+let castle_w_short = true
+let castle_b_long = true
+let castle_b_short = true
 
 //set all bord and promotion list piece
 const reset_all_pieces = () =>{
@@ -330,6 +334,52 @@ function pawn_move(temp_position){
     }
     return moves
 }
+//white castle
+function white_castle(button){
+    //white short castle
+    if(previous_button.style.backgroundImage.includes('w_king') && (previous_button.id==='a61') && 
+    (button.id==='a63') && (bord[61].style.backgroundImage === '') && (bord[62].style.backgroundImage === '') &&
+    (bord[63].style.backgroundImage.includes('w_rook')) && (castle_w_short==true)){
+        bord[63].style.backgroundImage =''
+        bord[61].style.backgroundImage = 'url("image/pieces/w_rook.png")'
+        castle_w_short = false
+        castle_w_long = false
+        post_move(button)
+    }
+    //white long castle
+    if(previous_button.style.backgroundImage.includes('w_king') && (previous_button.id==='a61') && 
+    (button.id==='a59') && (bord[57].style.backgroundImage === '') && (bord[58].style.backgroundImage === '') &&
+    (bord[59].style.backgroundImage === '') && (bord[56].style.backgroundImage.includes('w_rook')) && (castle_w_long==true)){
+        bord[56].style.backgroundImage =''
+        bord[59].style.backgroundImage = 'url("image/pieces/w_rook.png")'
+        castle_w_short = false
+        castle_w_long = false
+        post_move(button)
+    }
+}
+//black castle
+function black_castle(button){
+    //black short castle
+    if(previous_button.style.backgroundImage.includes('b_king') && (previous_button.id==='a5') && 
+    (button.id==='a7') && (bord[5].style.backgroundImage === '') && (bord[6].style.backgroundImage === '') &&
+    (bord[7].style.backgroundImage.includes('b_rook')) && (castle_b_short==true)){
+        bord[7].style.backgroundImage =''
+        bord[5].style.backgroundImage = 'url("image/pieces/b_rook.png")'
+        castle_b_short = false
+        castle_b_long = false
+        post_move(button)
+    }
+    //black long castle
+    if(previous_button.style.backgroundImage.includes('b_king') && (previous_button.id==='a5') && 
+    (button.id==='a3') && (bord[1].style.backgroundImage === '') && (bord[2].style.backgroundImage === '') &&
+    (bord[3].style.backgroundImage === '') && (bord[0].style.backgroundImage.includes('b_rook')) && (castle_b_long==true)){
+        bord[0].style.backgroundImage =''
+        bord[3].style.backgroundImage = 'url("image/pieces/b_rook.png")'
+        castle_b_short = false
+        castle_b_long = false
+        post_move(button)
+    }
+}
 document.addEventListener("DOMContentLoaded", () =>{
     const text1 = document.getElementById('text1')
     const text2 = document.getElementById('text2')
@@ -352,10 +402,14 @@ document.addEventListener("DOMContentLoaded", () =>{
         b_promotion = 'url("image/pieces/b_queen.png")'
         previous_button_id = 'reset'
         previous_color = 'b'
+        castle_w_long = true
+        castle_w_short = true
+        castle_b_long = true
+        castle_b_short = true
         
     })
     
-    //promotion buttons
+    //promotion list
     promotion_list.forEach(button =>{
         button.addEventListener("click", () =>{
             // white
@@ -414,7 +468,20 @@ document.addEventListener("DOMContentLoaded", () =>{
                     if(previous_button.style.backgroundImage.includes('king')){
                         x=king_move(temp_position)
                         if(x.includes(button_position)){
+                            if(previous_button.style.backgroundImage[18] === 'w'){
+                                castle_w_long = false
+                                castle_w_short = false
+                            }
+                            if(previous_button.style.backgroundImage[18] === 'b'){
+                                castle_b_long = false
+                                castle_b_short = false
+                            }
                             post_move(button)
+                        }
+                        //castle
+                        else{
+                            white_castle(button)
+                            black_castle(button)
                         }
                     }
                     if(previous_button.style.backgroundImage.includes('queen')){
@@ -440,6 +507,18 @@ document.addEventListener("DOMContentLoaded", () =>{
                     if(previous_button.style.backgroundImage.includes('rook')){
                         x=rook_move(temp_position)
                         if(x.includes(button_position)){
+                            if(temp_position==0){
+                                castle_b_long = false
+                            }
+                            if(temp_position==7){
+                                castle_b_short = false
+                            }
+                            if(temp_position==56){
+                                castle_w_long = false
+                            }
+                            if(temp_position==63){
+                                castle_w_short = false
+                            }
                             post_move(button)
                         }
                     }
