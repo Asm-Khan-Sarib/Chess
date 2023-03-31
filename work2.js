@@ -1,7 +1,9 @@
 const piece=['rook','knight','bishop','king','queen','bishop','knight','rook']
-let old_bord=[]
 let bord=[]
 let promotion_list=[]
+w_promotion = 'url("image/pieces/w_queen.png")'
+b_promotion = 'url("image/pieces/b_queen.png")'
+
 //set all bord and promotion list piece
 const reset_all_pieces = () =>{
     for(let i=0; i<bord.length; i++){
@@ -29,6 +31,14 @@ const reset_all_pieces = () =>{
 function remove_border(){
     bord.forEach(button=>{
         button.style.border = ''
+    })
+}
+//remove color from promotional button
+function remove_color(c){
+    promotion_list.forEach(button => {
+        if(button.style.backgroundImage[18]===c){
+            button.style.border = ''
+        }
     })
 }
 //king normal move
@@ -293,7 +303,30 @@ document.addEventListener("DOMContentLoaded", () =>{
     document.getElementById("reset").addEventListener("click", () =>{
         reset_all_pieces ()
         remove_border()
-        old_bord=[]
+        w_promotion = 'url("image/pieces/w_queen.png")'
+        b_promotion = 'url("image/pieces/b_queen.png")'
+        remove_color('w')
+        remove_color('b')
+    })
+    
+    //promotion buttons
+    promotion_list.forEach(button =>{
+        button.addEventListener("click", () =>{
+            // white
+            if(button.style.backgroundImage[18]==='w'){
+                remove_color('w')
+                w_promotion = button.style.backgroundImage
+                button.style.border = '3px solid rgba(206, 245, 35, 0.9)'
+            }
+            //black
+            if(button.style.backgroundImage[18]==='b'){
+                remove_color('b')
+                b_promotion = button.style.backgroundImage
+                button.style.border = '3px solid rgba(206, 245, 35, 0.9)'
+            }
+            text1.innerHTML=w_promotion
+            text2.innerHTML=b_promotion
+        })
     })
 
     bord.forEach(button => {
