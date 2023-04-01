@@ -34,7 +34,7 @@ const reset_all_pieces = () =>{
             bord[i].style.backgroundImage = ''
         }
     }
-    previous_button.style.backgroundImage = ''
+    document.getElementById("reset").style.backgroundImage = ''
 }
 //remove border
 function remove_border(){
