@@ -11,6 +11,9 @@ let castle_w_short = true
 let castle_b_long = true
 let castle_b_short = true
 
+let check_w = false
+let check_b = false
+
 //set all bord and promotion list piece
 const reset_all_pieces = () =>{
     for(let i=0; i<bord.length; i++){
@@ -56,6 +59,8 @@ function post_move(button){
     button.style.backgroundImage = previous_button.style.backgroundImage
     previous_button.style.backgroundImage = ''
     previous_button_id = 'reset'
+    find_check('w')
+    find_check('b')
 }
 //possible move
 function possible_move(button){
@@ -75,7 +80,7 @@ function possible_move(button){
         x=bishop_move(button_position)
     }
     if(button.style.backgroundImage.includes('knight')){
-        x=Knight_moves(button_position)
+        x=Knight_move(button_position)
     }
     if(button.style.backgroundImage.includes('rook')){
         x=rook_move(button_position)
@@ -109,7 +114,7 @@ function king_move(temp_position){
     return moves
 }
 //knight
-function Knight_moves(temp_position) {
+function Knight_move(temp_position) {
     let color = bord[temp_position].style.backgroundImage[18]
     let row = Math.floor(temp_position / 8)
     let col = temp_position % 8
@@ -400,6 +405,93 @@ function black_castle(button){
         post_move(button)
     }
 }
+//check
+function find_check(color){
+    let attacks=[]
+    let attack1=[]
+    let attack2=[]
+    let attack3=[]
+    let attack4=[]
+    let attack5=[]
+    let attack6=[]
+    let attack7=[]
+    let oponent_king_position=100;
+    
+    bord.forEach(button => {
+        if(button.style.backgroundImage[18]===color){
+            const button_position = bord.findIndex(x=>{
+                return x === button
+            })
+            if(button.style.backgroundImage.includes('king')){
+                attack1 = king_move(button_position)
+            }
+            if(button.style.backgroundImage.includes('queen')){
+                attack2 = bishop_move(button_position)
+                attack3 = rook_move(button_position)
+            }
+            if(button.style.backgroundImage.includes('bishop')){
+                attack4 = attack4.concat(bishop_move(button_position))
+            }
+            if(button.style.backgroundImage.includes('knight')){
+                attack5 = attack5.concat(Knight_move(button_position))
+            }
+            if(button.style.backgroundImage.includes('rook')){
+                attack6 = attack6.concat(rook_move(button_position))
+            }
+            if(button.style.backgroundImage.includes('b_pawn')){
+                if(button_position % 8 === 0){
+                    attack7.push(button_position+9)
+                }
+                else if((button_position+1) % 8 === 0){
+                    attack7.push(button_position+7)
+                }
+                else{
+                    attack7.push(button_position+7)
+                    attack7.push(button_position+9)
+                }
+                
+            }
+            if(button.style.backgroundImage.includes('w_pawn')){
+                if(button_position % 8 === 0){
+                    attack7.push(button_position-7)
+                }
+                else if((button_position+1) % 8 === 0){
+                    attack7.push(button_position-9)
+                }
+                else{
+                    attack7.push(button_position-7)
+                    attack7.push(button_position-9)
+                }
+            }
+        }
+        //find oponnent king
+        else if(button.style.backgroundImage.includes('king')){
+            oponent_king_position = bord.findIndex(x=>{
+                return x === button
+            })
+        }
+        else {}
+        attacks = [...attack1, ...attack2, ...attack3, ...attack4, ...attack5, ...attack6, ...attack7]
+        if(attacks.includes(oponent_king_position)){
+            if(color === 'w'){
+                check_b = true
+            }
+            else {
+                check_w = true
+            }
+            bord[oponent_king_position].style.border = '3px solid red'
+        }
+        else{
+            if(color === 'w'){
+                check_b = false
+            }
+            else {
+                check_w = false
+            }
+        }
+
+    })
+}
 document.addEventListener("DOMContentLoaded", () =>{
     const text1 = document.getElementById('text1')
     const text2 = document.getElementById('text2')
@@ -426,6 +518,8 @@ document.addEventListener("DOMContentLoaded", () =>{
         castle_w_short = true
         castle_b_long = true
         castle_b_short = true
+        check_w = false
+        check_b = false
         
     })
     
@@ -519,7 +613,7 @@ document.addEventListener("DOMContentLoaded", () =>{
                         }
                     }
                     if(previous_button.style.backgroundImage.includes('knight')){
-                        x=Knight_moves(temp_position)
+                        x=Knight_move(temp_position)
                         if(x.includes(button_position)){
                             post_move(button)
                         }
