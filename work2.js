@@ -1,19 +1,25 @@
 const piece=['rook','knight','bishop','queen','king','bishop','knight','rook']
 let bord=[]
 let promotion_list=[]
+//autopromotion
 let w_promotion = 'url("image/pieces/w_queen.png")'
 let b_promotion = 'url("image/pieces/b_queen.png")'
+//selected button's info
 let previous_button_id = 'reset'
 let previous_button = document.getElementById(`${previous_button_id}`)
 let previous_color = 'b'
+//castle status
 let castle_w_long = true
 let castle_w_short = true
 let castle_b_long = true
 let castle_b_short = true
-
+//detecting check
 let check_w = false
 let check_b = false
-
+//old button's info
+let previous_button2_id = 'z'
+let previous_color2 = 'b'
+let old_piece=''
 //set all bord and promotion list piece
 const reset_all_pieces = () =>{
     for(let i=0; i<bord.length; i++){
@@ -53,14 +59,34 @@ function remove_promotion_list_border(c){
         }
     })
 }
+//reverse move when check is not blocked
+function move_reverse(button){
+    previous_button.style.backgroundImage = button.style.backgroundImage
+    button.style.backgroundImage = old_piece
+    previous_button_id = previous_button2_id
+    previous_color = previous_color2
+}
 //post move
 function post_move(button){
     remove_border()
+    //save info for reverse move
+    previous_button2_id = previous_button_id
+    previous_color2 = previous_color
+    old_piece = button.style.backgroundImage
+    //change bord
     button.style.backgroundImage = previous_button.style.backgroundImage
     previous_button.style.backgroundImage = ''
     previous_button_id = 'reset'
+    //check
     find_check('w')
     find_check('b')
+    //reverse move
+    if(check_b && (button.style.backgroundImage[18]==='b')){
+        move_reverse(button)
+    }
+    else if(check_w && (button.style.backgroundImage[18]==='w')){
+        move_reverse(button)
+    }
 }
 //possible move
 function possible_move(button){
