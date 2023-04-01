@@ -334,6 +334,26 @@ function pawn_move(temp_position){
     }
     return moves
 }
+//check pawn promotionn
+function check_promotion(button_position){
+    remove_border()
+    //promotig white
+    if((previous_button.style.backgroundImage.includes('w_pawn')) && (Math.trunc(button_position/8) === 0)){
+        bord[button_position].style.backgroundImage = w_promotion
+        previous_button.style.backgroundImage = ''
+        previous_button_id = 'reset'
+    }
+    //promoting black
+    else if((previous_button.style.backgroundImage.includes('b_pawn')) && (Math.trunc(button_position/8) === 7)){
+        bord[button_position].style.backgroundImage = b_promotion
+        previous_button.style.backgroundImage = ''
+        previous_button_id = 'reset'
+    }
+    //other move
+    else{
+        post_move(bord[button_position])
+    }
+}
 //white castle
 function white_castle(button){
     //white short castle
@@ -525,7 +545,7 @@ document.addEventListener("DOMContentLoaded", () =>{
                     if(previous_button.style.backgroundImage.includes('pawn')){
                         x=pawn_move(temp_position)
                         if(x.includes(button_position)){
-                            post_move(button)
+                            check_promotion(button_position)
                         }
                     }
                     text1.innerHTML=x
