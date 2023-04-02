@@ -370,15 +370,45 @@ function check_promotion(button_position){
     remove_border()
     //promotig white
     if((previous_button.style.backgroundImage.includes('w_pawn')) && (Math.trunc(button_position/8) === 0)){
+        old_piece = bord[button_position].style.backgroundImage
+        previous_button2_id = previous_button_id
+        previous_color2 = previous_color
+
         bord[button_position].style.backgroundImage = w_promotion
         previous_button.style.backgroundImage = ''
         previous_button_id = 'reset'
+        ////after white making the move check if white king is in check or not. if yes, reverse promotion, if no, chek if black king is in check or not.
+        find_check('b')
+        if(check_w){
+            previous_button.style.backgroundImage = `url("image/pieces/w_pawn.png")`
+            bord[button_position].style.backgroundImage = old_piece
+            previous_button_id = previous_button2_id
+            previous_color = previous_color2
+        }
+        else{
+            find_check('w')
+        }
     }
     //promoting black
     else if((previous_button.style.backgroundImage.includes('b_pawn')) && (Math.trunc(button_position/8) === 7)){
+        old_piece = bord[button_position].style.backgroundImage
+        previous_button2_id = previous_button_id
+        previous_color2 = previous_color
+
         bord[button_position].style.backgroundImage = b_promotion
         previous_button.style.backgroundImage = ''
         previous_button_id = 'reset'
+        //after black making the move check if black king is in check or not. if yes, reverse promotion, if no, chek if white king is in check or not.
+        find_check('w')
+        if(check_b){
+            previous_button.style.backgroundImage = `url("image/pieces/b_pawn.png")`
+            bord[button_position].style.backgroundImage = old_piece
+            previous_button_id = previous_button2_id
+            previous_color = previous_color2
+        }
+        else{
+            find_check('b')
+        }
     }
     //other move
     else{
