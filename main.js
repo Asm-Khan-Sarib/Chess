@@ -413,10 +413,12 @@ function check_promotion(button_position){
 }
 //white castle
 function white_castle(button){
+    let black_attacks=find_attack('b')
     //white short castle
     if(previous_button.style.backgroundImage.includes('w_king') && (previous_button.id==='a61') && 
     (button.id==='a63') && (bord[61].style.backgroundImage === '') && (bord[62].style.backgroundImage === '') &&
-    (bord[63].style.backgroundImage.includes('w_rook')) && (castle_w_short==true)){
+    (bord[63].style.backgroundImage.includes('w_rook')) && (castle_w_short==true) && (!black_attacks.includes(60))
+    && (!black_attacks.includes(61)) && (!black_attacks.includes(62))){
         bord[63].style.backgroundImage =''
         bord[61].style.backgroundImage = 'url("image/pieces/w_rook.png")'
         castle_w_short = false
@@ -426,7 +428,8 @@ function white_castle(button){
     //white long castle
     if(previous_button.style.backgroundImage.includes('w_king') && (previous_button.id==='a61') && 
     (button.id==='a59') && (bord[57].style.backgroundImage === '') && (bord[58].style.backgroundImage === '') &&
-    (bord[59].style.backgroundImage === '') && (bord[56].style.backgroundImage.includes('w_rook')) && (castle_w_long==true)){
+    (bord[59].style.backgroundImage === '') && (bord[56].style.backgroundImage.includes('w_rook')) && (castle_w_long==true)
+    && (!black_attacks.includes(60)) && (!black_attacks.includes(59)) && (!black_attacks.includes(58))){
         bord[56].style.backgroundImage =''
         bord[59].style.backgroundImage = 'url("image/pieces/w_rook.png")'
         castle_w_short = false
@@ -436,10 +439,12 @@ function white_castle(button){
 }
 //black castle
 function black_castle(button){
+    let white_attacks=find_attack('w')
     //black short castle
     if(previous_button.style.backgroundImage.includes('b_king') && (previous_button.id==='a5') && 
     (button.id==='a7') && (bord[5].style.backgroundImage === '') && (bord[6].style.backgroundImage === '') &&
-    (bord[7].style.backgroundImage.includes('b_rook')) && (castle_b_short==true)){
+    (bord[7].style.backgroundImage.includes('b_rook')) && (castle_b_short==true) && (!white_attacks.includes(4)) 
+    && (!white_attacks.includes(5)) && (!white_attacks.includes(6))){
         bord[7].style.backgroundImage =''
         bord[5].style.backgroundImage = 'url("image/pieces/b_rook.png")'
         castle_b_short = false
@@ -449,7 +454,8 @@ function black_castle(button){
     //black long castle
     if(previous_button.style.backgroundImage.includes('b_king') && (previous_button.id==='a5') && 
     (button.id==='a3') && (bord[1].style.backgroundImage === '') && (bord[2].style.backgroundImage === '') &&
-    (bord[3].style.backgroundImage === '') && (bord[0].style.backgroundImage.includes('b_rook')) && (castle_b_long==true)){
+    (bord[3].style.backgroundImage === '') && (bord[0].style.backgroundImage.includes('b_rook')) && (castle_b_long==true)
+    && (!white_attacks.includes(4)) && (!white_attacks.includes(3)) && (!white_attacks.includes(2))){
         bord[0].style.backgroundImage =''
         bord[3].style.backgroundImage = 'url("image/pieces/b_rook.png")'
         castle_b_short = false
