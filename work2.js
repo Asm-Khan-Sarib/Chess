@@ -379,14 +379,12 @@ function check_promotion(button_position){
         previous_button_id = 'reset'
         ////after white making the move check if white king is in check or not. if yes, reverse promotion, if no, chek if black king is in check or not.
         find_check('b')
+        find_check('w')
         if(check_w){
             previous_button.style.backgroundImage = `url("image/pieces/w_pawn.png")`
             bord[button_position].style.backgroundImage = old_piece
             previous_button_id = previous_button2_id
             previous_color = previous_color2
-        }
-        else{
-            find_check('w')
         }
     }
     //promoting black
@@ -400,14 +398,12 @@ function check_promotion(button_position){
         previous_button_id = 'reset'
         //after black making the move check if black king is in check or not. if yes, reverse promotion, if no, chek if white king is in check or not.
         find_check('w')
+        find_check('b')
         if(check_b){
             previous_button.style.backgroundImage = `url("image/pieces/b_pawn.png")`
             bord[button_position].style.backgroundImage = old_piece
             previous_button_id = previous_button2_id
             previous_color = previous_color2
-        }
-        else{
-            find_check('b')
         }
     }
     //other move
