@@ -501,7 +501,6 @@ function find_check(color){
                     attack7.push(button_position+7)
                     attack7.push(button_position+9)
                 }
-                
             }
             if(button.style.backgroundImage.includes('w_pawn')){
                 if(button_position % 8 === 0){
@@ -541,7 +540,6 @@ function find_check(color){
                 check_w = false
             }
         }
-
     })
 }
 document.addEventListener("DOMContentLoaded", () =>{
@@ -590,8 +588,6 @@ document.addEventListener("DOMContentLoaded", () =>{
                 b_promotion = button.style.backgroundImage
                 button.style.border = '3px solid rgba(206, 245, 35, 0.9)'
             }
-            text1.innerHTML=w_promotion
-            text2.innerHTML=b_promotion
         })
     })
 
@@ -599,13 +595,11 @@ document.addEventListener("DOMContentLoaded", () =>{
         button.addEventListener("click", () => {
             previous_button = document.getElementById(`${previous_button_id}`) 
             //not capturing same color piece
-            if((button.style.backgroundImage != '') && (previous_button.style.backgroundImage != '') && (button.style.backgroundImage[18]==previous_button.style.backgroundImage[18])){
+            if((button.style.backgroundImage!='') && (previous_button.style.backgroundImage != '') && (button.style.backgroundImage[18]==previous_button.style.backgroundImage[18])){
                 remove_border()
                 button.style.border = '3px solid rgba(206, 245, 35, 0.9)'
                 previous_button_id = button.id
-                if(button.style.backgroundImage!=''){
-                    possible_move(button)
-                }
+                possible_move(button)
             }
             // not move same color twoice
             else if (button.style.backgroundImage[18]!=previous_color){
@@ -613,17 +607,14 @@ document.addEventListener("DOMContentLoaded", () =>{
                 if(previous_button.style.backgroundImage==''){
                     remove_border()
                     button.style.border = '3px solid rgba(206, 245, 35, 0.9)'
-                    if(button.style.backgroundImage !=''){
+                    if(button.style.backgroundImage!=''){
                         previous_button_id = button.id
                         previous_color=button.style.backgroundImage[18]
-                        if(button.style.backgroundImage!=''){
-                            possible_move(button)
-                        }
+                        possible_move(button)
                     }
                 }
                 //place a piece
                 else if( ! button.style.backgroundImage.includes('king') ){
-                    // 
                     const button_position = bord.findIndex(x=>{
                         return x === button
                     })
@@ -694,7 +685,6 @@ document.addEventListener("DOMContentLoaded", () =>{
                             check_promotion(button_position)
                         }
                     }
-                    text1.innerHTML=x
                 }
             }
                

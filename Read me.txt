@@ -10,6 +10,7 @@ Features:
 9. Check
 10. Discover check
 11. Not allow to make a move without defend check
+12. promote with blocking check
 '
 '
 '
@@ -18,4 +19,4 @@ Features:
 Limitations:
 1. En passant not added
 2. Castling issue(oponet piece has vission on squares between king and rook)
-3. pawn promote at the time of check
+3. check color error when both king in check.
