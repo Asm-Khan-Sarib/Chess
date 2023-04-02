@@ -37,7 +37,7 @@ td {
   cursor: pointer;
 }
 .w_button:hover {
-  background-color: rgba(247, 221, 107, 0.904);
+  background-color: rgba(199, 236, 96, 0.8);
 }
 .b_button {
   height: 60px;
@@ -47,7 +47,7 @@ td {
   cursor: pointer;
 }
 .b_button:hover {
-  background-color: rgba(247, 221, 107, 0.904);
+  background-color: rgba(199, 236, 96, 0.8);
 }
 .button {
   height: 70px;

@@ -115,7 +115,7 @@ function possible_move(button){
         x=pawn_move(button_position)
     }
     x.forEach(Element=>{
-        bord[Element].style.border='3px solid rgba(172, 65, 51, 0.9)'
+        bord[Element].style.border='2px solid rgb(50, 200, 50)'
     })
 }
 //king normal move
