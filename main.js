@@ -457,8 +457,8 @@ function black_castle(button){
         post_move(button)
     }
 }
-//check
-function find_check(color){
+//find attacks
+function find_attack(color){
     let attacks=[]
     let attack1=[]
     let attack2=[]
@@ -467,8 +467,6 @@ function find_check(color){
     let attack5=[]
     let attack6=[]
     let attack7=[]
-    let oponent_king_position=100;
-    
     bord.forEach(button => {
         if(button.style.backgroundImage[18]===color){
             const button_position = bord.findIndex(x=>{
@@ -515,32 +513,40 @@ function find_check(color){
                 }
             }
         }
+        attacks = [...attack1, ...attack2, ...attack3, ...attack4, ...attack5, ...attack6, ...attack7]
+    })
+    return attacks
+}
+//check
+function find_check(color){
+    let attacks=[]
+    let oponent_king_position=100;
+    attacks=find_attack(color)
+    bord.forEach(button => {
         //find oponnent king
-        else if(button.style.backgroundImage.includes('king')){
+        if(button.style.backgroundImage.includes('king') && (button.style.backgroundImage[18]!=color)){
             oponent_king_position = bord.findIndex(x=>{
                 return x === button
             })
         }
-        else {}
-        attacks = [...attack1, ...attack2, ...attack3, ...attack4, ...attack5, ...attack6, ...attack7]
-        if(attacks.includes(oponent_king_position)){
-            if(color === 'w'){
-                check_b = true
-            }
-            else {
-                check_w = true
-            }
-            bord[oponent_king_position].style.border = '3px solid red'
-        }
-        else{
-            if(color === 'w'){
-                check_b = false
-            }
-            else {
-                check_w = false
-            }
-        }
     })
+    if(attacks.includes(oponent_king_position)){
+        if(color === 'w'){
+            check_b = true
+        }
+        else {
+            check_w = true
+        }
+        bord[oponent_king_position].style.border = '3px solid red'
+    }
+    else{
+        if(color === 'w'){
+            check_b = false
+        }
+        else {
+            check_w = false
+        }
+    }
 }
 document.addEventListener("DOMContentLoaded", () =>{
     const text1 = document.getElementById('text1')
