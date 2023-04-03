@@ -19,4 +19,4 @@ Features:
 
 Limitations:
 1. En passant not added
-2. check color error when both king in check.
+2. check color error when both king in check.(only color issue for one move, no problem in piece movement)
