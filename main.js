@@ -554,10 +554,37 @@ function find_check(color){
         }
     }
 }
+//backgroud music
+const backgroud_music = () => {
+    document.getElementById("music1").addEventListener("click", function () {
+        document.getElementById("audio2").pause()
+        document.getElementById("audio1").play()
+    })
+    document.getElementById("music2").addEventListener("click", function () {
+        document.getElementById("audio1").pause()
+        document.getElementById("audio2").play()
+    })
+    document.getElementById("music3").addEventListener("click", function () {
+        document.getElementById("audio1").pause()
+        document.getElementById("audio2").pause()
+    })
+}
+//backgroud image
+const backgroud_image = () => {
+    document.getElementById("img1").addEventListener("click", function () {
+        document.body.style.backgroundImage = 'url("image/background/night1.jpg")'
+    })
+    document.getElementById("img2").addEventListener("click", function () {
+        document.body.style.backgroundImage = 'url("image/background/anime5.jpg")'
+    })
+    document.getElementById("img3").addEventListener("click", function () {
+        document.body.style.backgroundImage = 'url("image/background/beach1.jpg")'
+    })
+}
 document.addEventListener("DOMContentLoaded", () =>{
-    const text1 = document.getElementById('text1')
-    const text2 = document.getElementById('text2')
-    const text3 = document.getElementById('text3')
+    //change music and image
+    backgroud_music ()
+    backgroud_image ()
     //get bord and promotion bord
     for (let i = 1; i < 65; i++) {
         if(i<9){
